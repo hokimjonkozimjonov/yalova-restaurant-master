@@ -36,22 +36,22 @@
 					<div class="modal-content">
 						<i @click="closeModal" class="fa-solid fa-xmark"></i>
 						<div class="modal-info">
-							<img class="chef-img" :src="selectedChef.img" alt="Chef Image" />
+							<div class="img-box">
+								<img class="chef-img" :src="selectedChef.img" alt="Chef Image" />
+							</div>
 							<div>
 								<h4>{{ selectedChef.name }}</h4>
 								<div class="modal-desc">
-                  <div class="modal-line"></div>
+									<div class="modal-line"></div>
 									<p class="chef-description">{{ selectedChef.description }}</p>
-                  <div class="modal-line"></div>
+									<div class="modal-line"></div>
 								</div>
 
 								<p class="chef-information">{{ selectedChef.modal_desc }}</p>
 								<div class="find-social">
 									<h5>Finf on :</h5>
 									<div class="networks">
-										<a
-                      data-aos="zoom-in-up" 
-                      href="#facebook"
+										<a data-aos="zoom-in-up" href="#facebook"
 											><i class="fa-brands fa-facebook-f"></i
 										></a>
 										<a
@@ -294,24 +294,22 @@ const closeModal = () => {
 
 		.modal-info {
 			display: flex;
+			justify-content: center;
 			align-items: center;
 			gap: 40px;
-			justify-content: center;
 
-			.chef-img {
-				width: 50%;
-				height: 80%;
+			.img-box {
 				object-fit: cover;
 				position: relative;
 			}
 
-      .modal-desc {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
+			.modal-desc {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
 
-      .modal-line {
+			.modal-line {
 				width: 50px;
 				height: 1px;
 				background: var(--primary);
@@ -380,6 +378,47 @@ const closeModal = () => {
 			.about-chef {
 				width: 90%;
 			}
+
+			
+		}
+	}
+
+	@media screen and (max-width: 1293px) {
+		.our-team-title {
+			.chef-info {
+				padding: 100px;
+			}
+			.modal-info {
+				display: inline-block;
+			}
+
+			.img-box {
+				display: flex;
+				justify-content: center;
+				margin-bottom: 20px;
+
+				img {
+					width: 50%;
+				}
+			}
+		}
+	}
+
+	@media screen and (max-width: 1000px) {
+		.our-team-title {
+			.modal-info {
+				h4 {
+					font-size: 22px;
+				}
+
+				.chef-description {
+					font-size: 18px;
+				}
+
+				.chef-information {
+					font-size: 11px;
+				}
+			}
 		}
 	}
 
@@ -389,6 +428,12 @@ const closeModal = () => {
 				width: 90%;
 				display: grid;
 				grid-template-columns: repeat(2, 1fr);
+			}
+
+			.chef-info{
+				.modal-content {
+					width: 500px;
+				}
 			}
 		}
 	}
@@ -415,6 +460,13 @@ const closeModal = () => {
 				width: 90%;
 				display: grid;
 				grid-template-columns: repeat(1, 1fr);
+			}
+
+
+			.img-box {
+				img {
+					width: 80%;
+				}
 			}
 		}
 	}

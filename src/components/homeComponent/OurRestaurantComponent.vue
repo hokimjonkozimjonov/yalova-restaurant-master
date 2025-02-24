@@ -1,41 +1,97 @@
 <template>
 	<section class="our-restaurant">
 		<div class="our-restaurant-img" data-aos="zoom-in-up">
-			<img src="../../assets/jason-leung-poI7DelFiVA-unsplash.jpg" alt="" />
+			<img :src="currentContent.image" alt="ourRestaurant.img"/>
 		</div>
 		<div class="our-restaurant-title">
-			<h3 data-aos="zoom-in-up">Our restorans</h3>
+			<h3 data-aos="zoom-in-up">  {{ currentContent.title }}</h3>
 			<div class="line" data-aos="zoom-in-up">
 				<div>
 					<div></div>
 					<div></div>
 				</div>
-				<h5>Natoque penatibus</h5>
+				<h5> {{ currentContent.subtitle }} </h5>
 				<div>
 					<div></div>
 					<div></div>
 				</div>
 			</div>
 			<p data-aos="zoom-in-up">
-				The History of Kitchens and Cooks gives further intimation on Mr
-				Boulanger usual menu, stating confidently that "Boulanger served salted
-				poultry and fresh eggs, all presented without a tablecloth on small
-				marble tables". Numerous commentators have also referred to the supposed
-				restaurant owner's eccentric habit of touting for custom outside his
-				establishment, dressed in aristocratic fashion and brandishing a sword
-				<br />
-				<br />
-				Restaurant owner's eccentric habit of touting for custom outside his
-				establishment, dressed in aristocratic fashion and brandishing a sword
+				{{ currentContent.text }}
 			</p>
 			<RouterLink class="routerLink" to="/gallery">
 				<h4 data-aos="zoom-in-up">View Gallery</h4>
 			</RouterLink>
 		</div>
+
+		<div class="angles">
+				<button class="angles-left-btn" @click="changeContent('left')">
+					<i class="fa-solid fa-angle-left fa-2xl"></i>
+				</button>
+				<div class="dots">
+					<span v-for="(dot, index) in contents" :key="index" :class="['dot', { active: currentIndex === index }]"></span>
+				</div>
+				<button class="angles-right-btn" @click="changeContent('right')">
+					<i class="fa-solid fa-angle-right fa-2xl"></i>
+				</button>
+			</div>
 	</section>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const contents = [
+	{
+		image: '../src/assets/jason-leung-poI7DelFiVA-unsplash.jpg',
+		title: 'Our restaurant',
+		subtitle: 'Our Story',
+		text: 'Boulanger served salted poultry and fresh eggs, all presented without a tablecloth on small marble tables. He was known for touting for customers outside his establishment, dressed in aristocratic fashion and brandishing a sword.',
+	},
+	{
+		image: '../src/assets/jason-leung-poI7DelFiVA-unsplash.jpg',
+		title: 'Experience',
+		subtitle: "Chef's Special",
+		text: 'Our chef brings exquisite flavors, combining traditional techniques with modern twists. Each dish tells a story of passion and perfection, ensuring a unique dining experience for every guest.',
+	},
+	{
+		image: '../src/assets/jason-leung-poI7DelFiVA-unsplash.jpg',
+		title: 'Ambiance',
+		subtitle: 'Elegant Setting',
+		text: 'Enjoy your meal in a beautifully designed interior, where every detail is crafted to create a warm and inviting atmosphere. From soft lighting to comfortable seating, we ensure a memorable dining experience.',
+	},
+];
+
+const currentContent = ref(contents[0]);
+let currentIndex = 0;
+let interval = null;
+
+const changeContent = (direction) => {
+	const contentElements = document.querySelectorAll('.discover-title, .discover-img');
+	contentElements.forEach(element => element.classList.add('fade-out'));
+
+	setTimeout(() => {
+		if (direction === 'left') {
+			currentIndex = (currentIndex - 1 + contents.length) % contents.length; 
+		} else {
+			currentIndex = (currentIndex + 1) % contents.length; 
+		}
+		currentContent.value = contents[currentIndex];
+
+		contentElements.forEach(element => element.classList.remove('fade-out'));
+	}, 500); 
+};
+
+onMounted(() => {
+	interval = setInterval(() => {
+		changeContent('right');
+	}, 5000); 
+});
+
+onUnmounted(() => {
+	clearInterval(interval);
+});
+</script>
 
 <style lang="scss" scoped>
 .our-restaurant {
@@ -128,6 +184,45 @@
 			object-fit: cover;
 		}
 	}
+
+	.angles {
+			display: flex;
+			align-items: center;
+			position: absolute;
+			top: 90%;
+			width: 85%;
+			justify-content: center;
+			gap: 20px;
+
+			.angles-left-btn, .angles-right-btn {
+				background-color: transparent;
+				border: none;
+				color: var(--black);
+				position: relative;
+				z-index: 2;
+				cursor: pointer;
+			}
+
+			.dots {
+				display: flex;
+				gap: 8px;
+				justify-content: center;
+				align-items: center;
+
+				.dot {
+					width: 10px;
+					height: 10px;
+					background-color: var(--light-gray); 
+					border-radius: 50%;
+					opacity: 0.7;
+					transition: background-color 0.3s ease;
+				}
+
+				.dot.active {
+					background-color: var(--primary);
+				}
+			}
+		}
 }
 
 @media screen and (max-width: 1450px) {

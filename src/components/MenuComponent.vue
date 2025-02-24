@@ -3,13 +3,16 @@
     <img src="../assets/jason-leung-poI7DelFiVA-unsplash.jpg" alt="" />
     <div class="overlay"></div>
     <div class="menu-title">
-      <h3>Hot dishes</h3>
-      <div class="title">
-        <p>Pellentesque habitant morbi</p>
+      <div>
+        <h3>Our Menu</h3>
+        <div class="title">
+          <p>Pellentesque habitant morbi</p>
+        </div>
       </div>
     </div>
   </div>
 
+  <MenuCotegoriesComponent/>
   <HotDishesComponent />
   <DessertComponent />
   <DrinkComponent />
@@ -17,6 +20,7 @@
 
 <script setup>
 import {
+  MenuCotegoriesComponent,
   HotDishesComponent,
   DessertComponent,
   DrinkComponent,
