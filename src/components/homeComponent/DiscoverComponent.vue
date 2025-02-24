@@ -26,7 +26,11 @@
 					<i class="fa-solid fa-angle-left fa-2xl"></i>
 				</button>
 				<div class="dots">
-					<span v-for="(dot, index) in contents" :key="index" :class="['dot', { active: currentIndex === index }]"></span>
+					<span
+						v-for="(dot, index) in contents"
+						:key="index"
+						:class="['dot', { active: currentIndex === index }]"
+					></span>
 				</div>
 				<button class="angles-right-btn" @click="changeContent('right')">
 					<i class="fa-solid fa-angle-right fa-2xl"></i>
@@ -45,21 +49,21 @@ import { ref, onMounted, onUnmounted } from 'vue';
 const contents = [
 	{
 		image: '../src/assets/jason-leung-poI7DelFiVA-unsplash.jpg',
-		title: 'Discover',
-		subtitle: 'Our Story',
-		text: 'Boulanger served salted poultry and fresh eggs, all presented without a tablecloth on small marble tables. He was known for touting for customers outside his establishment, dressed in aristocratic fashion and brandishing a sword.',
+		title: 'Nonushta',
+		subtitle: 'Sog‘lom va Tetik Tong',
+		text: 'Kuningizni eng yangi va mazali nonushta bilan boshlang! Tabiiy mahsulotlar, yumshoq kroissantlar va yangilangan menyu siz uchun tayyor!',
 	},
 	{
 		image: '../src/assets/jason-leung-poI7DelFiVA-unsplash.jpg',
-		title: 'Experience',
-		subtitle: "Chef's Special",
-		text: 'Our chef brings exquisite flavors, combining traditional techniques with modern twists. Each dish tells a story of passion and perfection, ensuring a unique dining experience for every guest.',
+		title: 'Tushlik',
+		subtitle: 'Mazali va To‘yimli',
+		text: 'Bizning tushlik menyularimiz sizga to‘liq energiya berishga tayyor! Go‘shtli va sabzavotli taomlar, sho‘rvalar va salatlar sizni kutmoqda.',
 	},
 	{
 		image: '../src/assets/jason-leung-poI7DelFiVA-unsplash.jpg',
-		title: 'Ambiance',
-		subtitle: 'Elegant Setting',
-		text: 'Enjoy your meal in a beautifully designed interior, where every detail is crafted to create a warm and inviting atmosphere. From soft lighting to comfortable seating, we ensure a memorable dining experience.',
+		title: 'Kechki ovqatlar',
+		subtitle: 'Dam oling va Rohatlaning',
+		text: 'Kechqurun oila davrasida yoki do‘stlar bilan mazali taomlar tanovul qiling. Bizning shinam muhitimiz va shirin desertlar kechangizni yanada go‘zal qiladi.',
 	},
 ];
 
@@ -68,25 +72,27 @@ let currentIndex = 0;
 let interval = null;
 
 const changeContent = (direction) => {
-	const contentElements = document.querySelectorAll('.discover-title, .discover-img');
-	contentElements.forEach(element => element.classList.add('fade-out'));
+	const contentElements = document.querySelectorAll(
+		'.discover-title, .discover-img',
+	);
+	contentElements.forEach((element) => element.classList.add('fade-out'));
 
 	setTimeout(() => {
 		if (direction === 'left') {
-			currentIndex = (currentIndex - 1 + contents.length) % contents.length; 
+			currentIndex = (currentIndex - 1 + contents.length) % contents.length;
 		} else {
-			currentIndex = (currentIndex + 1) % contents.length; 
+			currentIndex = (currentIndex + 1) % contents.length;
 		}
 		currentContent.value = contents[currentIndex];
 
-		contentElements.forEach(element => element.classList.remove('fade-out'));
-	}, 500); 
+		contentElements.forEach((element) => element.classList.remove('fade-out'));
+	}, 500);
 };
 
 onMounted(() => {
 	interval = setInterval(() => {
 		changeContent('right');
-	}, 5000); 
+	}, 5000);
 });
 
 onUnmounted(() => {
@@ -110,7 +116,7 @@ onUnmounted(() => {
 	.discover-img {
 		width: 50%;
 		margin: 50px 0px;
-		transition: opacity 0.5s ease-in-out; 
+		transition: opacity 0.5s ease-in-out;
 	}
 
 	.discover-title {
@@ -178,7 +184,8 @@ onUnmounted(() => {
 			justify-content: center;
 			gap: 20px;
 
-			.angles-left-btn, .angles-right-btn {
+			.angles-left-btn,
+			.angles-right-btn {
 				background-color: transparent;
 				border: none;
 				color: var(--black);
@@ -196,7 +203,7 @@ onUnmounted(() => {
 				.dot {
 					width: 10px;
 					height: 10px;
-					background-color: var(--light-gray); 
+					background-color: var(--light-gray);
 					border-radius: 50%;
 					opacity: 0.7;
 					transition: background-color 0.3s ease;
@@ -220,7 +227,7 @@ onUnmounted(() => {
 
 	.discover-title.fade-out,
 	.discover-img.fade-out {
-		opacity: 0.5; 
+		opacity: 0.5;
 	}
 }
 </style>
